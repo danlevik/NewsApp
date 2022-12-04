@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <link th:href="@{css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<p th:text="${message}"/>
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+
+<form th:action="@{/signin}" method="post">
+    <div class="registration_card">
+        <h2 id="regtext">Форма регистрации</h2>
+        <div>
+            <label> Username : <input type="text" name="username" required placeholder="Введите имя пользователя..."/> </label>
+        </div>
+        <br>
+        <br>
+        <div>
+            <div><label> Password: <input type="password" name="password" required placeholder="Введите пароль..."/> </label></div>
+        </div>
+        <br>
+        <br>
+        <input type="submit" value="Зарегистрироваться"/>
+    </div>
+    <br>
+</form>
+<div style="text-align: center">
+    <form th:action="@{/login}">
+        <input type="submit" value="Есть аккаунт?"/>
+    </form>
+</div>
+</body>
+</html>

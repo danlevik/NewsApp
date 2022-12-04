@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Профиль</title>
+  </head>
+  <body>
+    <header class="header small-margin-bottom">
+      <div class="main-nav-container">
+        <a th:href="@{/}">Очерк</a>
+        <form class="search-form">
+          <input
+                  class="search-field"
+                  type="text"
+                  placeholder="Поиск"
+                  name="searchRequest"
+          />
+          <button class="search-submit" type="submit">Найти</button>
+        </form>
+        <nav class="main-nav">
+          <ul class="main-nav-list">
+            <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/profile}">Добавить статью</a></li>
+            <li th:if="${authority == '[GUEST]'}"><a class="main-nav-link" th:href="@{/login}">Войти</a></li>
+            <li th:if="${authority == '[USER]' or authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/profile}">Профиль</a></li>
+            <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" href="#">Просмотр статей</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="personal-page">
+      <aside class="aside">
+        <ul class="aside-nav-list">
+          <li><a class="aside-nav-link" href="profile.html">Профиль</a></li>
+          <li><a class="aside-nav-link" href="#">Просмотр статей</a></li>
+          <li><a class="aside-nav-link" href="#">Добавить статью</a></li>
+        </ul>
+      </aside>
+
+      <div class="profile">
+        <h2 class="article-title">Профиль</h2>
+        <div class="profile-data">
+          <p th:text="'Статус: ' + ${authority} ">Статус: АВТОР</p>
+          <p th:text="'Никнейм: ' + ${nickname}">Никнейм: НИКНЕЙМ</p>
+          <p th:text="'Имя: ' + ${firstname}">Имя: ИМЯ</p>
+          <p th:text="'Фамилия: ' + ${surname}">Фамилия: ФАМИЛИЯ</p>
+        </div>
+
+        <form class="edit-profile-form" th:method="POST" th:action="@{/profile}">
+          <label for="nickname">Никнейм</label>
+          <input id="nickname" type="text" name="personUsername" placeholder="nickname" required />
+          <label for="password">Пароль</label>
+          <input id="password" type="text" name="personPassword" placeholder="password" />
+          <label for="firstname">Имя</label>
+          <input id="firstname" type="text" name="personName" placeholder="firstname" />
+          <label for="surname">Фамилия</label>
+          <input id="surname" type="text" name="personSurname" placeholder="surname" />
+          <button class="button button--confirm">Изменить данные</button>
+        </form>
+        <button class="button button--exit">Выйти</button>
+      </div>
+
+      <form th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}" class="add-article-form" enctype="multipart/form-data" th:method="POST" th:action="@{/article}">
+        <label class="article-title" for="nickname">Название статьи</label>
+        <input
+                class="article-title-input"
+                id="article-title"
+                type="text"
+                placeholder="Название статьи"
+                name="articleTitle"
+                required
+        />
+        <label for="article-content">Текст статьи</label>
+        <textarea
+                class="article-input"
+                id="article-content"
+                type="text"
+                placeholder="article"
+                name="articleContent"
+                required
+        ></textarea>
+
+        <label for="article-tag">Раздел</label>
+        <select id="article-tag" name="articleTag" required>
+          <option th:each="tag : ${tags}" th:value="${tag.getId()}" th:text="${tag.getName()}"></option>
+        </select>
+
+        <label for="article-image">Загрузить изображение</label>
+        <input
+                class="article-image"
+                id="article-image"
+                type="file"
+                accept="image/png, image/jpeg"
+                name="articleImage"
+                required
+        />
+
+        <button class="button button--confirm">Добавить статью</button>
+      </form>
+    </main>
+
+    <footer class="footer">
+      <div class="address-col">
+        <p class="footer-heading">Наши контакты</p>
+        <address class="contacts">
+          <p class="address">г.Москва Улица 11-Парковая, д.36</p>
+          <p>
+            <a class="footer-nav-link" href="tel:8-123-456-78-90"
+              >Позвоните нам: 8-123-456-78-90</a
+            >
+          </p>
+          <p>
+            <a class="footer-nav-link" href="ocherk@news.ru"
+              >Напишите нам: ocherk@news.ru</a
+            >
+          </p>
+        </address>
+      </div>
+      <nav class="footer-nav-col">
+        <ul class="footer-nav-list">
+          <p class="footer-heading">Наши социальные сети</p>
+          <li><a class="footer-nav-link" href="#">Вконтакте</a></li>
+          <li><a class="footer-nav-link" href="#">Телеграм</a></li>
+          <li><a class="footer-nav-link" href="#">Одноклассники</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav-col">
+        <ul class="footer-nav-list">
+          <p class="footer-heading">Полезные ссылки</p>
+          <li><a class="footer-nav-link" href="#">Главная</a></li>
+          <li><a class="footer-nav-link" href="#">Добавить статью</a></li>
+          <li><a class="footer-nav-link" href="#">Профиль</a></li>
+          <li><a class="footer-nav-link" href="#">Избранное</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </body>
+</html>

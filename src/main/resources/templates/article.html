@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Новостное агенство "Очерк"</title>
+  </head>
+  <body>
+    <header class="header small-margin-bottom">
+      <div class="main-nav-container">
+        <a th:href="@{/}">Очерк</a>
+
+        <nav class="main-nav">
+          <ul class="main-nav-list">
+            <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/profile}">Добавить статью</a></li>
+            <li th:if="${authority == '[GUEST]'}"><a class="main-nav-link" th:href="@{/login}">Войти</a></li>
+            <li th:if="${authority == '[USER]' or authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/profile}">Профиль</a></li>
+            <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" href="#">Просмотр статей</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="article">
+      <section class="article-header">
+        <h2 class="article-big-title" th:text="${articleTitle}">Когда собирать облепиху?</h2>
+        <p class="article-big-author" th:text="${articleAuthorName} + ' ' + ${articleAuthorSurname}">Илон Маск</p>
+        <p class="reading-time" th:text="'Время чтения: ' + ${readingTime} + 'мин.'">Время чтения: 8 минут</p>
+      </section>
+
+      <section class="article-text-container">
+        <p class="article-text" th:each="paragraph : ${articleParagraphs}" th:text="${paragraph}">
+          Lorem ipsum dolor sit amet
+        </p>
+      </section>
+
+      <section class="comments">
+        <div class="comment" th:each="comment : ${commentList}">
+          <p class="comment-author" th:text="${personService.getPersonById(comment.getPersonId()).getName()} + ' ' + ${personService.getPersonById(comment.getPersonId()).getSurname()}">Даниил Левицкий</p>
+          <p class="comment-content" th:text="${comment.getContent()}">
+            Миллиардер будет мне рассказывать когда собирать облепиху? Мда,
+            треш...
+          </p>
+        </div>
+
+        <form class="add-comment-form comment" th:method="POST" th:action="@{/news/{id}(id=${articleId})}">
+          <label class="comment-title" for="comment">Текст комментария</label>
+          <input
+            class="comment-input"
+            id="comment"
+            type="text"
+            name="commentContent"
+            placeholder="comment"
+            required
+          />
+          <button class="button button--confirm">Добавить комментарий</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="address-col">
+        <p class="footer-heading">Наши контакты</p>
+        <address class="contacts">
+          <p class="address">г.Москва Улица 11-Парковая, д.36</p>
+          <p>
+            <a class="footer-nav-link" href="tel:8-123-456-78-90"
+              >Позвоните нам: 8-123-456-78-90</a
+            >
+          </p>
+          <p>
+            <a class="footer-nav-link" href="ocherk@news.ru"
+              >Напишите нам: ocherk@news.ru</a
+            >
+          </p>
+        </address>
+      </div>
+      <nav class="footer-nav-col">
+        <ul class="footer-nav-list">
+          <p class="footer-heading">Наши социальные сети</p>
+          <li><a class="footer-nav-link" href="#">Вконтакте</a></li>
+          <li><a class="footer-nav-link" href="#">Телеграм</a></li>
+          <li><a class="footer-nav-link" href="#">Одноклассники</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav-col">
+        <ul class="footer-nav-list">
+          <p class="footer-heading">Полезные ссылки</p>
+          <li><a class="footer-nav-link" href="#">Главная</a></li>
+          <li><a class="footer-nav-link" href="#">Добавить статью</a></li>
+          <li><a class="footer-nav-link" href="#">Профиль</a></li>
+          <li><a class="footer-nav-link" href="#">Избранное</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </body>
+</html>
