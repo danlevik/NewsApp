@@ -35,6 +35,10 @@ public class ArticleService {
         return articleRepo.findAllByTitleLike("%" + query + "%");
     }
 
+    public List<Article> findArticlesByAuthorId (int id){
+        return articleRepo.findAllByAuthorId(id);
+    }
+
     public void deleteArticleById(int id) {
         articleRepo.deleteById(id);
     }

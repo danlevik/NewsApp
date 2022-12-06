@@ -44,7 +44,13 @@ public class MainController {
             ){
 
 
-        model.addAttribute("authority", person.getAuthorities().toString());
+        if (person == null){
+            model.addAttribute("authority", "GUEST");
+        }
+        else {
+            model.addAttribute("authority", person.getAuthorities().toString());
+        }
+
         model.addAttribute("tags", tagService.getAllTags());
         model.addAttribute("tagService", tagService);
         List<Article> articleList;

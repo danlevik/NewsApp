@@ -370,7 +370,6 @@ a:active {
 .article-input {
   font-family: "Times New Roman", Times, serif;
   font-size: 1.8rem;
-  height: 100%;
 }
 
 .button {
@@ -490,4 +489,42 @@ a:active {
 .comment-input {
   font-size: 1.6rem;
   height: 6.4rem;
+}
+
+/* MY ARTICLES */
+.my-articles {
+  grid-column: span 2;
+  max-width: 120rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.my-articles-title {
+  font-size: 4.8rem;
+}
+
+.article-element {
+  display: flex;
+  align-content: center;
+  border-style: solid;
+  justify-content: space-between;
+  border-style: solid;
+  border-color: #333;
+  height: 20rem;
+}
+
+.publish-date {
+  font-size: 1.8rem;
+}
+
+.delete-link {
+  font-size: 1.8rem;
+  color: #a01f1f;
+}
+
+.my-article-img {
+  height: auto;
+  flex-basis: 20rem;
+  object-fit: cover;
 }

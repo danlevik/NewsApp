@@ -11,6 +11,8 @@ public interface ArticleRepo extends JpaRepository<Article, Integer> {
 
     List<Article> findAllByTagId(int tagId);
 
+    List<Article> findAllByAuthorId(int authorId);
+
 //    Поиск
     List<Article> findAllByTitleLike(String query);
 

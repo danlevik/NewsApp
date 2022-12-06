@@ -66,7 +66,7 @@
           <input id="surname" type="text" name="personSurname" placeholder="surname" />
           <button class="button button--confirm">Изменить данные</button>
         </form>
-        <button class="button button--exit">Выйти</button>
+        <a class="button button--exit" th:href="@{/logout}">Выйти</a>
       </div>
 
       <form th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}" class="add-article-form" enctype="multipart/form-data" th:method="POST" th:action="@{/article}">
@@ -106,6 +106,22 @@
 
         <button class="button button--confirm">Добавить статью</button>
       </form>
+
+      <section class="my-articles">
+        <h2 class="my-articles-title">Мои статьи</h2>
+        <article class="article-element" th:each="article : ${articleList}">
+          <span class="tag" th:text="${tagService.getTagById(article.getTagId()).getName()}">Тэг 1</span>
+          <img class="my-article-img" th:src="'img/' + ${article.getPictureLink()}" />
+          <h2 class="article-title" th:text="${article.getTitle()}">
+            Название статьи
+          </h2>
+          <p class= "publish-date" th:text="${article.getDate().toString().substring(0, 10)}" >01.01.2002</p>
+          <form class="my-articles-actions" th:method="POST" th:action="@{/articleDelete/(articleId=${article.getId()})}">
+            <input type="hidden" name="articleId" th:value="${article.getId()}">
+            <button class="delete-link">Удалить</button>
+          </form>
+        </article>
+      </section>
     </main>
 
     <footer class="footer">

@@ -49,9 +49,13 @@ public class ArticleController {
 
 
 //        Проверка
-        System.out.println(person.getAuthorities().toString());
-
-        model.addAttribute("authority", person.getAuthorities().toString());
+//        System.out.println(person.getAuthorities().toString());
+        if (person == null){
+            model.addAttribute("authority", "GUEST");
+        }
+        else {
+            model.addAttribute("authority", person.getAuthorities().toString());
+        }
         model.addAttribute("articleTitle", article.getTitle());
         model.addAttribute("articleParagraphs", articleParagraphs);
         model.addAttribute("articleId", article.getId());

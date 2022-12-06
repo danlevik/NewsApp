@@ -54,6 +54,8 @@ public class ProfileController {
         model.addAttribute("firstname", person.getName());
         model.addAttribute("surname", person.getSurname());
         model.addAttribute("tags", tagService.getAllTags());
+        model.addAttribute("articleList", articleService.findArticlesByAuthorId(person.getId()));
+        model.addAttribute("tagService", tagService);
 
         return "profile";
     }
@@ -71,6 +73,16 @@ public class ProfileController {
 
         return "redirect:/login";
 
+    }
+
+//    Чтобы работал DeleteMapping нужно отдельно писать отправку DELETE в js
+    @PostMapping("/articleDelete")
+    public String deleteArticle(Authentication authentication,
+                                @RequestParam(name = "articleId") int articleId){
+
+        articleService.deleteArticleById(articleId);
+
+        return "redirect:/profile";
     }
 
     @PostMapping("/article")
