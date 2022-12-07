@@ -51,7 +51,7 @@ public class ArticleController {
 //        Проверка
 //        System.out.println(person.getAuthorities().toString());
         if (person == null){
-            model.addAttribute("authority", "GUEST");
+            model.addAttribute("authority", "[GUEST]");
         }
         else {
             model.addAttribute("authority", person.getAuthorities().toString());

@@ -22,8 +22,8 @@
           <ul class="main-nav-list">
             <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/profile}">Добавить статью</a></li>
             <li th:if="${authority == '[GUEST]'}"><a class="main-nav-link" th:href="@{/login}">Войти</a></li>
-            <li th:if="${authority == '[USER]' or authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/profile}">Профиль</a></li>
-            <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" href="#">Просмотр статей</a></li>
+            <li th:if="${authority != '[GUEST]'}"><a class="main-nav-link" th:href="@{/profile}">Профиль</a></li>
+            <li th:if="${authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/admin/users}">Админ-Панель</a></li>
           </ul>
         </nav>
       </div>
@@ -50,7 +50,7 @@
           </p>
         </div>
 
-        <form class="add-comment-form comment" th:method="POST" th:action="@{/news/{id}(id=${articleId})}">
+        <form class="add-comment-form comment" th:if="${authority != '[GUEST]'}" th:method="POST" th:action="@{/news/{id}(id=${articleId})}">
           <label class="comment-title" for="comment">Текст комментария</label>
           <input
             class="comment-input"
@@ -93,10 +93,11 @@
       <nav class="footer-nav-col">
         <ul class="footer-nav-list">
           <p class="footer-heading">Полезные ссылки</p>
-          <li><a class="footer-nav-link" href="#">Главная</a></li>
-          <li><a class="footer-nav-link" href="#">Добавить статью</a></li>
-          <li><a class="footer-nav-link" href="#">Профиль</a></li>
-          <li><a class="footer-nav-link" href="#">Избранное</a></li>
+          <li><a class="footer-nav-link" th:href="@{/}">Главная</a></li>
+          <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="footer-nav-link" th:href="@{/profile}">Добавить статью</a></li>
+          <li th:if="${authority == '[GUEST]'}"><a class="footer-nav-link" th:href="@{/login}">Войти</a></li>
+          <li th:if="${authority != '[GUEST]'}"><a class="footer-nav-link" th:href="@{/profile}">Профиль</a></li>
+          <li th:if="${authority == '[ADMIN]'}"><a class="footer-nav-link" th:href="@{/admin/users}">Админ-Панель</a></li>
         </ul>
       </nav>
     </footer>

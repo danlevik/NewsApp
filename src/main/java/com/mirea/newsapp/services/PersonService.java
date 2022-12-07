@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PersonService implements UserDetailsService {
@@ -46,6 +48,18 @@ public class PersonService implements UserDetailsService {
             return "GUEST";
         else
             return ((Person)loadUserByUsername(authentication.getName())).getRole();
+    }
+
+    public List<Person> getAllPersons(){
+        return personRepo.findAll();
+    }
+
+    public void save(Person person){
+        personRepo.save(person);
+    }
+
+    public void deletePersonById(int id) {
+        personRepo.deleteById(id);
     }
 
     public void create(String username, String password) {

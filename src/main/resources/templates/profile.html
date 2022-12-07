@@ -30,21 +30,14 @@
           <ul class="main-nav-list">
             <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/profile}">Добавить статью</a></li>
             <li th:if="${authority == '[GUEST]'}"><a class="main-nav-link" th:href="@{/login}">Войти</a></li>
-            <li th:if="${authority == '[USER]' or authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/profile}">Профиль</a></li>
-            <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="main-nav-link" href="#">Просмотр статей</a></li>
+            <li th:if="${authority != '[GUEST]'}"><a class="main-nav-link" th:href="@{/profile}">Профиль</a></li>
+            <li th:if="${authority == '[ADMIN]'}"><a class="main-nav-link" th:href="@{/admin/users}">Админ-Панель</a></li>
           </ul>
         </nav>
       </div>
     </header>
 
     <main class="personal-page">
-      <aside class="aside">
-        <ul class="aside-nav-list">
-          <li><a class="aside-nav-link" href="profile.html">Профиль</a></li>
-          <li><a class="aside-nav-link" href="#">Просмотр статей</a></li>
-          <li><a class="aside-nav-link" href="#">Добавить статью</a></li>
-        </ul>
-      </aside>
 
       <div class="profile">
         <h2 class="article-title">Профиль</h2>
@@ -70,7 +63,10 @@
       </div>
 
       <form th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}" class="add-article-form" enctype="multipart/form-data" th:method="POST" th:action="@{/article}">
-        <label class="article-title" for="nickname">Название статьи</label>
+        <h2 class="article-title">Опубликовать статью</h2>
+        <label class="article-title-label" for="article-title"
+        >Название статьи</label
+        >
         <input
                 class="article-title-input"
                 id="article-title"
@@ -107,7 +103,7 @@
         <button class="button button--confirm">Добавить статью</button>
       </form>
 
-      <section class="my-articles">
+      <section class="my-articles" th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}">
         <h2 class="my-articles-title">Мои статьи</h2>
         <article class="article-element" th:each="article : ${articleList}">
           <span class="tag" th:text="${tagService.getTagById(article.getTagId()).getName()}">Тэг 1</span>
@@ -152,10 +148,11 @@
       <nav class="footer-nav-col">
         <ul class="footer-nav-list">
           <p class="footer-heading">Полезные ссылки</p>
-          <li><a class="footer-nav-link" href="#">Главная</a></li>
-          <li><a class="footer-nav-link" href="#">Добавить статью</a></li>
-          <li><a class="footer-nav-link" href="#">Профиль</a></li>
-          <li><a class="footer-nav-link" href="#">Избранное</a></li>
+          <li><a class="footer-nav-link" th:href="@{/}">Главная</a></li>
+          <li th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}"><a class="footer-nav-link" th:href="@{/profile}">Добавить статью</a></li>
+          <li th:if="${authority == '[GUEST]'}"><a class="footer-nav-link" th:href="@{/login}">Войти</a></li>
+          <li th:if="${authority != '[GUEST]'}"><a class="footer-nav-link" th:href="@{/profile}">Профиль</a></li>
+          <li th:if="${authority == '[ADMIN]'}"><a class="footer-nav-link" th:href="@{/admin/users}">Админ-Панель</a></li>
         </ul>
       </nav>
     </footer>

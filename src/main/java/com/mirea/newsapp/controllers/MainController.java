@@ -45,7 +45,7 @@ public class MainController {
 
 
         if (person == null){
-            model.addAttribute("authority", "GUEST");
+            model.addAttribute("authority", "[GUEST]");
         }
         else {
             model.addAttribute("authority", person.getAuthorities().toString());
