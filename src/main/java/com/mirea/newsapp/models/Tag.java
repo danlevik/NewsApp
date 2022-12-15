@@ -1,12 +1,5 @@
 package com.mirea.newsapp.models;
-
 import javax.persistence.*;
-
-
-//(
-//        tag_id serial primary key,
-//        tag_name varchar(50) not null
-//        )
 
 @Entity
 @Table(name = "tag")

@@ -73,7 +73,7 @@ public class ArticleController {
         return "article";
     }
 
-    @PostMapping("/news/{id}")
+    @PostMapping("/news/{id}/comment")
     public String postCommentOnArticle(
             Authentication authentication,
             @AuthenticationPrincipal Person person,

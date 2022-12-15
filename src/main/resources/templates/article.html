@@ -50,7 +50,7 @@
           </p>
         </div>
 
-        <form class="add-comment-form comment" th:if="${authority != '[GUEST]'}" th:method="POST" th:action="@{/news/{id}(id=${articleId})}">
+        <form class="add-comment-form comment" th:if="${authority != '[GUEST]'}" th:method="POST" th:action="@{/news/{id}/comment(id=${articleId})}">
           <label class="comment-title" for="comment">Текст комментария</label>
           <input
             class="comment-input"

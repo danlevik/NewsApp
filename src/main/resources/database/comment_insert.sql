@@ -1,5 +1,5 @@
 INSERT INTO comment(person_id, article_id, comment_content, comment_date)
 VALUES
-(1, 1, 'Никогда не поверю что это не фотошоп! Нас обманывают', DATE(NOW())),
-(2, 1, 'Боже как же красиво емае', DATE(NOW())),
-(3, 1, 'Я люблю абрикосы', DATE(NOW()));
+(2, 1, 'Чудесная статья', DATE(NOW())),
+(3, 1, 'Очень красиво, мне нравится', DATE(NOW() - interval 1 day)),
+(4, 1, 'Я люблю горы', DATE(NOW()));
