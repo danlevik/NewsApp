@@ -28,9 +28,6 @@ import java.util.UUID;
 @Controller
 public class ProfileController {
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
     @Autowired
     private ArticleService articleService;
 
