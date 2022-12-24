@@ -2,10 +2,7 @@ package com.mirea.newsapp.controllers;
 
 
 import com.mirea.newsapp.models.Person;
-import com.mirea.newsapp.services.ArticleService;
-import com.mirea.newsapp.services.CommentService;
-import com.mirea.newsapp.services.PersonService;
-import com.mirea.newsapp.services.TagService;
+import com.mirea.newsapp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,6 +29,9 @@ public class AdminController {
     @Autowired
     private TagService tagService;
 
+    @Autowired
+    private RoleService roleService;
+
     @GetMapping("/users")
     public String showUserList(@AuthenticationPrincipal Person person,
                                Model model){
@@ -48,7 +48,7 @@ public class AdminController {
                                  @RequestParam(name = "changeRole") String personRole){
 
         Person person = personService.getPersonById(personId);
-        person.setRole(personRole);
+        person.setRole(roleService.findRoleByName(personRole));
         personService.save(person);
 
         return "redirect:/admin/users";

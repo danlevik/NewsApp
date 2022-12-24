@@ -3,6 +3,7 @@ package com.mirea.newsapp.services;
 
 import com.mirea.newsapp.models.Person;
 import com.mirea.newsapp.repos.PersonRepo;
+import com.mirea.newsapp.repos.RoleRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,9 @@ import java.util.List;
 public class PersonService implements UserDetailsService {
 
     private PersonRepo personRepo;
+
+    @Autowired
+    private RoleService roleService;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -47,7 +51,7 @@ public class PersonService implements UserDetailsService {
         if (authentication == null)
             return "GUEST";
         else
-            return ((Person)loadUserByUsername(authentication.getName())).getRole();
+            return ((Person)loadUserByUsername(authentication.getName())).getRole().getName();
     }
 
     public List<Person> getAllPersons(){
@@ -68,7 +72,7 @@ public class PersonService implements UserDetailsService {
         person.setSurname("Анонимный");
         person.setUsername(username);
         person.setPassword(bCryptPasswordEncoder.encode(password));
-        person.setRole("USER");
+        person.setRole(roleService.findRoleByName("USER"));
         personRepo.save(person);
     }
 

@@ -45,7 +45,7 @@
             />
             <label class="select-label">Роль: </label>
             <select name="changeRole" required>
-                <option th:value="${user.getRole()}" th:text="${user.getRole()}"></option>
+                <option th:value="${user.getRole().getName()}" th:text="${user.getRole().getName()}"></option>
                 <option value="USER">Пользователь</option>
                 <option value="AUTHOR">Автор</option>
                 <option value="ADMIN">Администратор</option>

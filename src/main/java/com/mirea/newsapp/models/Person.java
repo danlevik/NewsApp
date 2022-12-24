@@ -32,8 +32,12 @@ public class Person implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "person_role")
-    private String role;
+//    @Column(name = "person_role")
+//    private String role;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn (name = "role_id")
+    private Role role;
 
     @OneToMany (fetch = FetchType.LAZY)
     @JoinColumn (name = "author_id")
@@ -82,20 +86,28 @@ public class Person implements UserDetails {
         this.password = password;
     }
 
-    public String getRole() {
+//    public String getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
+//
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return Collections.singletonList(new SimpleGrantedAuthority(role));
+//    }
+
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(role));
-    }
-
-////
+    ////
 //    public Set<Role> getRoles() {
 //        return roles;
 //    }
@@ -109,6 +121,11 @@ public class Person implements UserDetails {
 //        return getRoles();
 //    }
 ////
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(role.getName()));
+    }
 
     @Override
     public String getPassword() {
@@ -140,27 +157,5 @@ public class Person implements UserDetails {
         return true;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Person{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", roles=" + roles +
-//                '}';
-//    }
 
-//    @Override
-//    public String toString() {
-//        return "Person{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", role='" + role + '\'' +
-//                '}';
-//    }
 }

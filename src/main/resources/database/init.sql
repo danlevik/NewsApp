@@ -1,11 +1,20 @@
+
+create table if not exists role
+(
+  role_id serial primary key,
+  role_name varchar(256) not null
+);
+
 create table if not exists person
 (
     person_id serial primary key,
-    person_role varchar(30),
+#     person_role varchar(30) not null,
+    role_id bigint unsigned not null,
     person_name varchar(30),
     person_surname varchar(30),
     username varchar(30) not null,
-    password varchar(256) not null
+    password varchar(256) not null,
+    foreign key (role_id) references role (role_id) on delete cascade
     );
 
 create table if not exists tag

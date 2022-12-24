@@ -28,6 +28,7 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
+    @ToString.Exclude
     private Person person;
 
 //    @Column(name = "article_id")
@@ -35,6 +36,7 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
+    @ToString.Exclude
     private Article article;
 
     @Column(name = "comment_content")
@@ -104,14 +106,6 @@ public class Comment {
         this.date = date;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Comment{" +
-//                "id=" + id +
-//                ", personId=" + personId +
-//                ", articleId=" + articleId +
-//                ", content='" + content + '\'' +
-//                ", date=" + date +
-//                '}';
-//    }
+
+
 }

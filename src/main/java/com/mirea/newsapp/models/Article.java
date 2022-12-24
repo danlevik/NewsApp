@@ -1,5 +1,6 @@
 package com.mirea.newsapp.models;
 
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class Article {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="tag_id")
+    @ToString.Exclude
     private Tag tag;
 
 //    @Column(name = "author_id")
@@ -40,6 +42,7 @@ public class Article {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
+    @ToString.Exclude
     private Person author;
 
     @Column(name = "article_title")
@@ -59,6 +62,7 @@ public class Article {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
+    @ToString.Exclude
     private List<Comment> commentList;
 
     public int getId() {
@@ -135,16 +139,7 @@ public class Article {
         this.pictureLink = pictureLink;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Article{" +
-//                "id=" + id +
-//                ", tagId=" + tagId +
-//                ", authorId=" + authorId +
-//                ", title='" + title + '\'' +
-//                ", content='" + content + '\'' +
-//                ", date=" + date +
-//                ", pictureLink='" + pictureLink + '\'' +
-//                '}';
+//    public List<Comment> getCommentList() {
+//        return commentList;
 //    }
 }
