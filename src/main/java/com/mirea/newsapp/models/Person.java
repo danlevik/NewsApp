@@ -1,5 +1,6 @@
 package com.mirea.newsapp.models;
 
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -31,6 +34,21 @@ public class Person implements UserDetails {
 
     @Column(name = "person_role")
     private String role;
+
+    @OneToMany (fetch = FetchType.LAZY)
+    @JoinColumn (name = "author_id")
+    @ToString.Exclude
+    List<Article> articleList;
+
+    @OneToMany (fetch = FetchType.LAZY)
+    @JoinColumn (name = "person_id")
+    @ToString.Exclude
+    List<Comment> commentList;
+
+//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+//    @CollectionTable(name = "role", joinColumns = @JoinColumn(name = "person_id"))
+//    @Enumerated(EnumType.STRING)
+//    private Set<Role> roles;
 
     public int getId() {
         return id;
@@ -77,6 +95,21 @@ public class Person implements UserDetails {
         return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
+////
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
+//
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return getRoles();
+//    }
+////
+
     @Override
     public String getPassword() {
         return password;
@@ -107,15 +140,27 @@ public class Person implements UserDetails {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Person{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", roles=" + roles +
+//                '}';
+//    }
+
+//    @Override
+//    public String toString() {
+//        return "Person{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", role='" + role + '\'' +
+//                '}';
+//    }
 }

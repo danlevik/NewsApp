@@ -43,10 +43,9 @@
 
       <section class="comments">
         <div class="comment" th:each="comment : ${commentList}">
-          <p class="comment-author" th:text="${personService.getPersonById(comment.getPersonId()).getName()} + ' ' + ${personService.getPersonById(comment.getPersonId()).getSurname()}">Даниил Левицкий</p>
+          <p class="comment-author" th:text="${comment.getPerson().getName()} + ' ' + ${comment.getPerson().getSurname()}">Даниил Левицкий</p>
           <p class="comment-content" th:text="${comment.getContent()}">
-            Миллиардер будет мне рассказывать когда собирать облепиху? Мда,
-            треш...
+            Миллиардер будет мне рассказывать когда собирать облепиху? Мда...
           </p>
         </div>
 

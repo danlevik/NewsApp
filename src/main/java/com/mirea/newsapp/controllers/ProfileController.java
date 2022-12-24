@@ -114,9 +114,13 @@ public class ProfileController {
 
             newArticle.setTitle(articleTitle);
             newArticle.setContent(articleContent);
-            newArticle.setAuthorId(person.getId());
+
+//            newArticle.setAuthorId(person.getId());
+            newArticle.setAuthor(person);
             newArticle.setDate(currentDate);
-            newArticle.setTagId(articleTag);
+//            newArticle.setTagId(articleTag);
+            newArticle.setTag(tagService.getTagById(articleTag));
+
             newArticle.setPictureLink(articleImageLink);
             articleService.saveArticle(newArticle);
         }

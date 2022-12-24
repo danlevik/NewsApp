@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 //(
 //        article_id serial primary key,
@@ -27,11 +28,19 @@ public class Article {
     @Column(name = "article_id")
     private int id;
 
-    @Column(name = "tag_id")
-    private int tagId;
+//    @Column(name = "tag_id")
+//    private int tagId;
 
-    @Column(name = "author_id")
-    private int authorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="tag_id")
+    private Tag tag;
+
+//    @Column(name = "author_id")
+//    private int authorId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private Person author;
 
     @Column(name = "article_title")
     private String title;
@@ -47,6 +56,11 @@ public class Article {
     @Column(name = "picture_link")
     private String pictureLink;
 
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_id")
+    private List<Comment> commentList;
+
     public int getId() {
         return id;
     }
@@ -55,20 +69,38 @@ public class Article {
         this.id = id;
     }
 
-    public int getTagId() {
-        return tagId;
+//    public int getTagId() {
+//        return tagId;
+//    }
+//
+//    public void setTagId(int tagId) {
+//        this.tagId = tagId;
+//    }
+
+
+    public Tag getTag() {
+        return tag;
     }
 
-    public void setTagId(int tagId) {
-        this.tagId = tagId;
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 
-    public int getAuthorId() {
-        return authorId;
+//    public int getAuthorId() {
+//        return authorId;
+//    }
+//
+//    public void setAuthorId(int authorId) {
+//        this.authorId = authorId;
+//    }
+
+
+    public Person getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
+    public void setAuthor(Person author) {
+        this.author = author;
     }
 
     public String getTitle() {
@@ -103,16 +135,16 @@ public class Article {
         this.pictureLink = pictureLink;
     }
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", tagId=" + tagId +
-                ", authorId=" + authorId +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", date=" + date +
-                ", pictureLink='" + pictureLink + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Article{" +
+//                "id=" + id +
+//                ", tagId=" + tagId +
+//                ", authorId=" + authorId +
+//                ", title='" + title + '\'' +
+//                ", content='" + content + '\'' +
+//                ", date=" + date +
+//                ", pictureLink='" + pictureLink + '\'' +
+//                '}';
+//    }
 }

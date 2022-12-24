@@ -49,7 +49,7 @@
       <section class="article-container small-margin-bottom">
         <a th:each="article : ${articleList}" th:href="'/news/' + ${article.getId()}">
           <article class="article-card">
-            <span class="tag" th:text="${tagService.getTagNameById(article.getTagId())}">Тэг 1</span>
+            <span class="tag" th:text="${article.getTag().getName()}">Тэг 1</span>
             <img class="card-img" th:src="'img/' + ${article.getPictureLink()}"/>
             <h2 class="article-title"  th:text="${article.getTitle()}">
               Панда в Московском зоопарке вкусно покушала

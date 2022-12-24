@@ -43,7 +43,8 @@ public class ArticleController {
 
         Article article = articleService.getArticleById(id);
 
-        Person articleAuthor = personService.getPersonById(article.getAuthorId());
+//        Person articleAuthor = personService.getPersonById(article.getAuthorId());
+        Person articleAuthor = article.getAuthor();
 
         List<String> articleParagraphs = List.of(article.getContent().split("\r?\n|\r"));
 
@@ -60,7 +61,7 @@ public class ArticleController {
         model.addAttribute("articleParagraphs", articleParagraphs);
         model.addAttribute("articleId", article.getId());
 
-        model.addAttribute("articleTag", tagService.getTagById(article.getTagId()));
+        model.addAttribute("articleTag", article.getTag());
         model.addAttribute("articleAuthorName", articleAuthor.getName());
         model.addAttribute("articleAuthorSurname", articleAuthor.getSurname());
         model.addAttribute("readingTime", articleService.getReadingTimeInMinutes(article));
@@ -88,8 +89,11 @@ public class ArticleController {
 
             Comment newComment = new Comment();
 
-            newComment.setPersonId(person.getId());
-            newComment.setArticleId(id);
+//            newComment.setPersonId(person.getId());
+//            newComment.setArticleId(id);
+            newComment.setPerson(person);
+            newComment.setArticle(articleService.getArticleById(id));
+
             newComment.setContent(commentContent);
             newComment.setDate(currentDate);
             commentService.saveComment(newComment);

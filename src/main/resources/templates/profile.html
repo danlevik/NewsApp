@@ -106,7 +106,7 @@
       <section class="my-articles" th:if="${authority == '[AUTHOR]' or authority == '[ADMIN]'}">
         <h2 class="my-articles-title">Мои статьи</h2>
         <article class="article-element" th:each="article : ${articleList}">
-          <span class="tag" th:text="${tagService.getTagById(article.getTagId()).getName()}">Тэг 1</span>
+          <span class="tag" th:text="${article.getTag().getName()}">Тэг 1</span>
           <img class="my-article-img" th:src="'img/' + ${article.getPictureLink()}" />
           <h2 class="article-title" th:text="${article.getTitle()}">
             Название статьи
