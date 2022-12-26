@@ -52,7 +52,6 @@ public class MainController {
         }
 
         model.addAttribute("tags", tagService.getAllTags());
-        model.addAttribute("tagService", tagService);
         List<Article> articleList;
 
         if (searchRequest == null){

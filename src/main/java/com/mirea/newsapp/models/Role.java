@@ -18,10 +18,10 @@ public class Role {
     @Column(name = "role_name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
-    @ToString.Exclude
-    private List<Person> personList;
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "role_id")
+//    @ToString.Exclude
+//    private List<Person> personList;
 
     public int getId() {
         return id;

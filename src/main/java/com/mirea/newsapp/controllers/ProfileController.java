@@ -52,7 +52,6 @@ public class ProfileController {
         model.addAttribute("surname", person.getSurname());
         model.addAttribute("tags", tagService.getAllTags());
         model.addAttribute("articleList", articleService.findArticlesByAuthorId(person.getId()));
-        model.addAttribute("tagService", tagService);
 
         return "profile";
     }
@@ -72,10 +71,14 @@ public class ProfileController {
 
     }
 
-//    Чтобы работал DeleteMapping нужно отдельно писать отправку DELETE в js
     @PostMapping("/articleDelete")
     public String deleteArticle(Authentication authentication,
                                 @RequestParam(name = "articleId") int articleId){
+
+        List<Comment> commentList = articleService.getArticleById(articleId).getCommentList();
+        for (int i = 0; i < commentList.size(); i++){
+            commentService.deleteComment(commentList.get(i));
+        }
 
         articleService.deleteArticleById(articleId);
 

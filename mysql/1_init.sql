@@ -1,13 +1,20 @@
 set names utf8;
 
+create table if not exists role
+(
+    role_id serial primary key,
+    role_name varchar(256) not null
+);
+
 create table if not exists person
 (
     person_id serial primary key,
-    person_role varchar(30),
+    role_id bigint unsigned not null,
     person_name varchar(30),
     person_surname varchar(30),
     username varchar(30) not null,
-    password varchar(256) not null
+    password varchar(256) not null,
+    foreign key (role_id) references role (role_id) on delete cascade
     );
 
 create table if not exists tag
@@ -40,13 +47,15 @@ create table if not exists comment
     foreign key (article_id) references article (article_id) on delete cascade
 );
 
-INSERT INTO person (username, password, person_role, person_name, person_surname)
+INSERT INTO role (role_name) VALUES ('USER'), ('AUTHOR'), ('ADMIN');
+
+INSERT INTO person (username, password, role_id, person_name, person_surname)
 VALUES
-    ('admin', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 'ADMIN', 'Даниил', 'Левицкий'),
-    ('a1', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 'USER', 'Дмитрий', 'Лебедев'),
-    ('a2', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 'USER', 'Анастасия', 'Овчаренко'),
-    ('a3', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 'USER', 'Александра', 'Нешкумай'),
-    ('g1', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 'USER', 'Василиса', 'Мурунова');
+    ('admin', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 3, 'Даниил', 'Левицкий'),
+    ('a1', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 2, 'Дмитрий', 'Лебедев'),
+    ('a2', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 1, 'Анастасия', 'Овчаренко'),
+    ('a3', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 1, 'Александра', 'Нешкумай'),
+    ('g1', '$2a$10$cFC7x5dLtTDljvseOQa7LOYL4S0u0vaM32AHWQB3o09RSgc0xFf7a', 1, 'Василиса', 'Мурунова');
 
 INSERT INTO tag (tag_name)
 VALUES

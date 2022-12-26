@@ -16,10 +16,10 @@ public class Tag {
     @Column(name = "tag_name")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tag_id")
-    @ToString.Exclude
-    private List<Article> articleList;
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "tag_id")
+//    @ToString.Exclude
+//    private List<Article> articleList;
 
     public int getId() {
         return id;

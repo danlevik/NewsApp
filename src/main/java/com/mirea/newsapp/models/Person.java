@@ -39,15 +39,15 @@ public class Person implements UserDetails {
     @JoinColumn (name = "role_id")
     private Role role;
 
-    @OneToMany (fetch = FetchType.LAZY)
-    @JoinColumn (name = "author_id")
-    @ToString.Exclude
-    List<Article> articleList;
+//    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn (name = "author_id")
+//    @ToString.Exclude
+//    List<Article> articleList;
 
-    @OneToMany (fetch = FetchType.LAZY)
-    @JoinColumn (name = "person_id")
-    @ToString.Exclude
-    List<Comment> commentList;
+//    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn (name = "person_id")
+//    @ToString.Exclude
+//    List<Comment> commentList;
 
 //    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 //    @CollectionTable(name = "role", joinColumns = @JoinColumn(name = "person_id"))

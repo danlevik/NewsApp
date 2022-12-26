@@ -60,7 +60,7 @@ public class Article {
     private String pictureLink;
 
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "article_id")
     @ToString.Exclude
     private List<Comment> commentList;
@@ -73,7 +73,11 @@ public class Article {
         this.id = id;
     }
 
-//    public int getTagId() {
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    //    public int getTagId() {
 //        return tagId;
 //    }
 //

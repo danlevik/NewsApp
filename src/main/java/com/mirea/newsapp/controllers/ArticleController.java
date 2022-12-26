@@ -68,8 +68,6 @@ public class ArticleController {
 
         List<Comment> commentList = commentService.getCommentsByArticleId(id);
         model.addAttribute("commentList", commentList);
-        model.addAttribute("personService", personService);
-        model.addAttribute("articleService", articleService);
 
         return "article";
     }
